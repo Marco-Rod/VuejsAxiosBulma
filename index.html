@@ -13,6 +13,13 @@
 </head>
 
 <body>
+    <div class="section">
+        <nav class="level">
+            <p class="level-item has-text-centered">
+                <img src="https://bulma.io/images/bulma-type.png" alt="" style="height: 30px;">
+            </p>
+        </nav>
+    </div>
     <section class="section hero is-dark">
         <div class="container" id="app">
             <h1 class="title .is-$turquoise">
@@ -63,7 +70,6 @@
             let homeworld = ''
             axios.get('https://swapi.co/api/people/1/')
                 .then((result) => {
-                    console.log(result.data.name)
                     this.name = result.data.name
                     this.height = result.data.height
                     this.mass = result.data.mass
