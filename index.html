@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <section class="section hero is-dark">
+        <div class="container" id="app">
+            <h1 class="title .is-$turquoise">
+                API STARS WARS
+            </h1>
+            <p class="subtitle">Nombre: {{name}}</p>
+            <p class="subtitle">Altura: {{height}}</p>
+            <p class="subtitle">Peso: {{mass}}</p>
+            <p class="subtitle">Color de Cabello: {{hair_color}}</p>
+            <p class="subtitle">Color de Piel: {{skin_color}}</p>
+            <p class="subtitle">Color de Ojos: {{eye_color}}</p>
+            <p class="subtitle">Año de Nacimiento: {{birth_year}}</p>
+            <p class="subtitle">Genero: {{gender}}</p>
+            <p class="subtitle">Hogar: {{homeworld}}</p>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Bulma</strong> by
+                <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content is licensed
+                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                name: null,
+                height: null,
+                mass: null,
+                hair_color: null,
+                skin_color: null,
+                eye_color: null,
+                birth_year: null,
+                gender: null,
+                homeworld: null
+            }
+        },
+        mounted() {
+            //axios
+            let homeworld = ''
+            axios.get('https://swapi.co/api/people/1/')
+                .then((result) => {
+                    console.log(result.data.name)
+                    this.name = result.data.name
+                    this.height = result.data.height
+                    this.mass = result.data.mass
+                    this.hair_color = result.data.hair_color
+                    this.skin_color = result.data.skin_color
+                    this.eye_color = result.data.eye_color
+                    this.birth_year = result.data.birth_year
+                    this.gender = result.data.gender
+                    homeworld = result.data.homeworld
+                    return axios.get(homeworld);
+                })
+                .then((result) => {
+                    this.homeworld = result.data.name
+                }).catch((err) => {
+                    console.log(err)
+                });
+        }
+    })
+</script>
